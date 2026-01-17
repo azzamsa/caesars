@@ -6,14 +6,14 @@ Encrypt and decrypt your secrets using ROT algorithm 🔐
 
 </div>
 
-![demo](docs/demo.gif)
+![demo](https://github.com/user-attachments/assets/0603d140-1480-49ed-92dc-6d9eda3dc34b)
 
 ---
 
 ## Rationale
 
 The project started to find a frontend framework that suit my need.
-For the [backend](https://github.com/azzamsa/rust-backend-zoo), I found Axum is the most appealing currently.
+For backend, I found Axum is the most appealing currently.
 
 After some research, now the result is live: [Is Rust Ready for Web Front-End?](https://azzamsa.com/n/rust-frontend/).
 
@@ -25,7 +25,8 @@ The file only contains user-facing changes, so you won't get lost bisecting the 
 ## Web
 
 - 🦀 [Dioxus](frontend/dioxus)
-- 🖖 [Vue 3](frontend/vue)
+- 🦀 [Leptos](frontend/leptos)
+- 🎩 [Vue 3](frontend/vue)
 - 🎩 [Svelte](frontend/svelte)
 
 ## Usage
@@ -34,7 +35,7 @@ Start the backend.
 
 ```sh
 $ cd backend
-$ make dev  # see also `make setup`
+$ just setup && just dev
 ```
 
 Go to the playground `http://127.0.0.1:8000/playground` to see the schema.
@@ -43,7 +44,7 @@ After starting the backend. Choose the frontend framework you want to see.
 
 ```sh
 $ cd frontend/favorite-frontend
-$ make dev
+$ just setup && just dev
 ```
 
 ## Credits
