@@ -1,0 +1,59 @@
+
+#!/usr/bin/env -S just --justfile
+
+set dotenv-load := true
+
+alias d := dev
+alias f := fmt
+alias l := lint
+alias t := test
+alias c := comply
+alias k := check
+
+[doc('List available commands')]
+_default:
+    just --list --unsorted
+
+[confirm('⚠️ This command will alter your system. Run recipe `setup`?')]
+[doc('Set up the repository')]
+setup:
+    cargo binstall cargo-edit cargo-nextest cargo-outdated dprint git-cliff bacon typos-cli
+
+[doc('Enforce rules')]
+comply: fmt lint test
+
+[doc('Check rules')]
+check: fmt-check lint test
+
+[doc('Develop the app')]
+dev:
+    bacon
+    just comply
+
+[doc('Format the codebase.')]
+fmt:
+    cargo fmt --all
+    dprint fmt
+
+[doc('Verify code formatting.')]
+fmt-check:
+    cargo fmt --all -- --check
+    dprint check
+
+[doc('Lint the codebase')]
+lint:
+    cargo clippy --all-targets --all-features
+    typos
+
+[doc('Test the codebase')]
+test:
+    cargo test
+
+[doc('Manage dependencies; --write to upgrade')]
+up arg="":
+    {{ if arg == "--write" { "cargo upgrade --incompatible --recursive --verbose && cargo update && dprint config update" } else { "cargo outdated --root-deps-only" } }}
+
+[doc('Dependency analysis')]
+meta:
+    cargo +nightly udeps
+    cargo audit

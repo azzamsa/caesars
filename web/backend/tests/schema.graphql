@@ -1,0 +1,44 @@
+type Config {
+	env: String!
+	baseUrl: String!
+	port: Int!
+}
+
+type Decrypt {
+	plain: String!
+	rotation: Int!
+}
+
+type Encrypt {
+	secret: String!
+	rotation: Int!
+}
+
+type Health {
+	status: String!
+}
+
+type Meta {
+	build: String!
+	version: String!
+	config: Config!
+}
+
+type Query {
+	meta: Meta!
+	health: Health!
+	encrypt(plain: String!, rotation: Int!): Encrypt!
+	decrypt(secret: String!, rotation: Int!): Decrypt!
+}
+
+"""
+Directs the executor to include this field or fragment only when the `if` argument is true.
+"""
+directive @include(if: Boolean!) on FIELD | FRAGMENT_SPREAD | INLINE_FRAGMENT
+"""
+Directs the executor to skip this field or fragment when the `if` argument is true.
+"""
+directive @skip(if: Boolean!) on FIELD | FRAGMENT_SPREAD | INLINE_FRAGMENT
+schema {
+	query: Query
+}
