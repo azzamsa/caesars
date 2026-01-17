@@ -1,0 +1,6 @@
+target/
+dist/
+public/tailwind.css
+*.yaml
+*.md
+*.toml
