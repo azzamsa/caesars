@@ -1,0 +1,23 @@
+[package]
+name = "frontend"
+version = "1.0.0"
+edition = "2021"
+
+[dependencies]
+leptos = { version = "0.6.13", features = ["serde", "csr"] }
+leptos_meta = { version = "0.6.13", features = ["csr"] }
+leptos_router = { version = "0.6.13", features = ["csr"] }
+
+gloo-net = { version = "0.6.0", features = ["http"] }
+log = "0.4"
+
+# dependecies for client (enable when csr or hydrate set)
+console_error_panic_hook = { version = "0.1.7" }
+console_log = { version = "1" }
+wasm-bindgen = { version = "0.2" }
+
+# backend communication
+cynic = "3.7"
+reqwest = { version = "0.12", features = ["json"] }
+serde = "1.0"
+serde_json = "1.0"
