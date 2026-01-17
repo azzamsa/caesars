@@ -11,6 +11,7 @@ use axum::{
     response::{self, IntoResponse},
     routing::{get, post},
 };
+use hyper::header::{AUTHORIZATION, CONTENT_TYPE};
 use tower_http::cors::{Any, CorsLayer};
 use utoipa::OpenApi;
 use utoipa_swagger_ui::SwaggerUi;
@@ -74,7 +75,10 @@ pub async fn app() -> Result<Router, Error> {
     )]
     struct ApiDoc;
 
-    let cors = CorsLayer::new().allow_origin(Any);
+    let cors = CorsLayer::new()
+        .allow_origin(Any)
+        .allow_methods(Any)
+        .allow_headers([AUTHORIZATION, CONTENT_TYPE]);
     let mut app = Router::new()
         .route("/graphql", post(routes::graphql_handler))
         .route("/health", get(health::resolver::health))
